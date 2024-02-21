@@ -13,6 +13,13 @@ $random_password = $result[0];
 // Restituisco il numero dei caratteri per poi calcolare la lunghezza massima
 $characters = $result[1];
 
+
+// Riavvio della pagina se viene cliccato il reset button
+if (isset($_GET['reset'])) {   
+    header("Location: {$_SERVER['PHP_SELF']}");
+    exit();
+};
+
 ?>
 
 
@@ -50,12 +57,12 @@ $characters = $result[1];
 
                 <div class="buttons mt-5">
                     <button type="submit" class="btn btn-primary">Genera</button>
-                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                    <button type="submit" class="btn btn-secondary" name="reset">Annulla</button>
                 </div>
 
             </form>
 
-            <?php if($random_password) : ?>
+            <?php if($random_password && !isset($_GET['reset'])) : ?>
             <div class="password-container mt-5" >
                 <h3>La tua password è:</h3>
                 <p><?= $random_password ?></p>
