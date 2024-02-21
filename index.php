@@ -1,10 +1,24 @@
 <?php
-// Recupero il valore dal form
-$password_length = $_GET['length'] ?? '';
 
+//? FUNZIONE
 include __DIR__ . '/includes/functions/password.php';
 
+//? SVOLGIMENTO
 
+// Recupero il valore dal form
+$password_length = isset($_GET['length']) ? $_GET['length'] : '';
+
+// Controllo per l'alert
+
+$alert_class = '';
+$alert_message = '';
+
+if ($password_length !== '') {
+    $alert_class = $password_length >= 5? 'alert-success' : 'alert-danger';
+    $alert_message = $password_length >= 5? 'Password generata con successo' : 'Attenzione, non hai inserito parametri validi';
+}
+
+// Funzione per password casuale
 $result = get_random_password($password_length);
 
 // Restituisco la random password
@@ -14,8 +28,9 @@ $random_password = $result[0];
 $characters = $result[1];
 
 
+
 // Riavvio della pagina se viene cliccato il reset button
-if (isset($_GET['reset'])) {   
+if (isset($_GET['reset'])) {      
     header("Location: {$_SERVER['PHP_SELF']}");
     exit();
 };
@@ -48,11 +63,19 @@ if (isset($_GET['reset'])) {
     </header>
     <main>
         <div class="container">
+
+            <!-- Alert -->
+            <div class="alert <?= $alert_class ?> mb-5" role="alert">
+                <?= $alert_message ?>
+            </div>
+
+            <!-- Form -->
             <form method="GET" action="">
 
                 <div class="mb-3 d-flex justify-content-between">
                     <label for="password" class="form-label fs-2">Lunghezza password (minimo 5 caratteri):</label>
-                    <input type="number" class="form-control w-50" id="password" name="length" min="5" max="<?= $characters ? strlen($characters) : '' ?>" value="<?= $password_length ?>">
+                    <input type="number" class="form-control w-50" id="password" name="length" min="5"
+                        max="<?= $characters ? strlen($characters) : '' ?>" value="<?= $password_length ?>">
                 </div>
 
                 <div class="buttons mt-5">
@@ -63,9 +86,11 @@ if (isset($_GET['reset'])) {
             </form>
 
             <?php if($random_password && !isset($_GET['reset'])) : ?>
-            <div class="password-container mt-5" >
+            <div class="password-container mt-5">
                 <h3>La tua password è:</h3>
-                <p><?= $random_password ?></p>
+                <p>
+                    <?= $random_password ?>
+                </p>
             </div>
             <?php endif;?>
         </div>
