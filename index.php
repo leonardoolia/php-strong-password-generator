@@ -11,12 +11,18 @@ function get_random_password ($password_length) {
         $random_string .= $characters[rand(0, mb_strlen($characters) -1)];
     }
 
-    return $random_string;
+    return [$random_string, $characters];
+    
 };
 
-$random_password=get_random_password($password_length);
 
-var_dump($random_password);
+$result = get_random_password($password_length);
+
+// Restituisco la random password
+$random_password = $result[0];
+
+// Restituisco il numero dei caratteri per poi calcolare la lunghezza massima
+$characters = $result[1];
 
 ?>
 
@@ -50,7 +56,7 @@ var_dump($random_password);
 
                 <div class="mb-3 d-flex justify-content-between">
                     <label for="password" class="form-label fs-2">Lunghezza password (minimo 5 caratteri):</label>
-                    <input type="number" class="form-control w-50" id="password" name="length" min="5">
+                    <input type="number" class="form-control w-50" id="password" name="length" min="5" max="<?= $characters ? strlen($characters) : '' ?>" value="<?= $password_length ?>">
                 </div>
 
                 <div class="buttons mt-5">
@@ -59,6 +65,13 @@ var_dump($random_password);
                 </div>
 
             </form>
+
+            <?php if($random_password) : ?>
+            <div class="password-container mt-5" >
+                <h3>La tua password è:</h3>
+                <p><?= $random_password ?></p>
+            </div>
+            <?php endif;?>
         </div>
     </main>
 </body>
