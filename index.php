@@ -1,12 +1,12 @@
 <?php
 
 //? FUNZIONE
-include __DIR__ . '/includes/functions/password.php';
+require __DIR__ . '/includes/functions/password.php';
 
 //? SVOLGIMENTO
 
-// Recupero il valore dal form
-$password_length = isset($_GET['length']) ? $_GET['length'] : '';
+// Recupero il valore dal form e lo trasformo in numero
+$password_length = isset($_GET['length']) ? intval($_GET['length']) : '';
 
 // Controllo per l'alert
 
@@ -22,7 +22,11 @@ if ($password_length !== '') {
 $result = get_random_password($password_length);
 
 // Restituisco la random password
+session_start();
 $random_password = $result[0];
+$_SESSION['password'] = $random_password; 
+
+
 
 // Restituisco il numero dei caratteri per poi calcolare la lunghezza massima
 $characters = $result[1];
@@ -34,6 +38,12 @@ if (isset($_GET['reset'])) {
     header("Location: {$_SERVER['PHP_SELF']}");
     exit();
 };
+
+
+// Sezione di reindirizzamento
+if (!isset($password_length)) {
+    header('Location: ./includes/templates/printpassword.php');    
+}
 
 ?>
 
@@ -85,14 +95,7 @@ if (isset($_GET['reset'])) {
 
             </form>
 
-            <?php if($random_password && !isset($_GET['reset'])) : ?>
-            <div class="password-container mt-5">
-                <h3>La tua password è:</h3>
-                <p>
-                    <?= $random_password ?>
-                </p>
-            </div>
-            <?php endif;?>
+            
         </div>
     </main>
 </body>
