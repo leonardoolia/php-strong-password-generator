@@ -32,7 +32,7 @@ $_SESSION['password'] = $random_password;
 $characters = $result[1];
 
 // Lunghezza minima per password
-$password_min_length = 5;
+$password_min_length = 6;
 
 
 // Riavvio della pagina se viene cliccato il reset button
@@ -85,7 +85,7 @@ if ($password_length) {
             <form method="GET" action="">
 
                 <div class="mb-3 d-flex justify-content-between">
-                    <label for="password" class="form-label fs-2">Lunghezza password (minimo 5 caratteri):</label>
+                    <label for="password" class="form-label fs-2">Lunghezza password (minimo <?= $password_min_length?> caratteri):</label>
                     <input type="number" class="form-control w-50" id="password" name="length" min="<?= $password_min_length?>"
                         max="<?= $characters ? strlen($characters) : '' ?>" value="<?= $password_length ?>">
                 </div>
