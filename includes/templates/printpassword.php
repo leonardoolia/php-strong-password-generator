@@ -20,7 +20,7 @@ session_start();
 <body data-bs-theme="dark">
     <main>
         <div class="container">            
-            <div class="password-container mt-5">
+            <div class="password-container my-5">
                 <h3>La tua password è:</h3>
                 <p>
                     <?= $_SESSION['password'] ?>
