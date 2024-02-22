@@ -31,6 +31,8 @@ $_SESSION['password'] = $random_password;
 // Restituisco il numero dei caratteri per poi calcolare la lunghezza massima
 $characters = $result[1];
 
+// Lunghezza minima per password
+$password_min_length = 5;
 
 
 // Riavvio della pagina se viene cliccato il reset button
@@ -84,7 +86,7 @@ if ($password_length) {
 
                 <div class="mb-3 d-flex justify-content-between">
                     <label for="password" class="form-label fs-2">Lunghezza password (minimo 5 caratteri):</label>
-                    <input type="number" class="form-control w-50" id="password" name="length" min="5"
+                    <input type="number" class="form-control w-50" id="password" name="length" min="<?= $password_min_length?>"
                         max="<?= $characters ? strlen($characters) : '' ?>" value="<?= $password_length ?>">
                 </div>
 
