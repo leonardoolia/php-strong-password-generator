@@ -19,18 +19,19 @@ session_start();
 
 <body data-bs-theme="dark">
     <main>
-        <div class="container">
-        <?php if($_SESSION['password'] && !isset($_GET['reset'])) : ?>
-    <div class="password-container mt-5">
-        <h3>La tua password è:</h3>
-        <p>
-            <?= $_SESSION['password'] ?>
-        </p>
-    </div>
-    <?php endif;?>  
+        <div class="container">            
+            <div class="password-container mt-5">
+                <h3>La tua password è:</h3>
+                <p>
+                    <?= $_SESSION['password'] ?>
+                </p>
+            </div>
+
+
+            <span><a href="../../index.php">Genera un'altra password</a></span>
+            
         </div>
     </main>
 </body>
 
 </html>
-
