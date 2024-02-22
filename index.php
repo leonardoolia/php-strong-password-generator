@@ -41,7 +41,7 @@ if (isset($_GET['reset'])) {
 
 
 // Sezione di reindirizzamento
-if (!isset($password_length)) {
+if ($password_length) {
     header('Location: ./includes/templates/printpassword.php');    
 }
 
